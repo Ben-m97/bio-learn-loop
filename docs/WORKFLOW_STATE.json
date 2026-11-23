@@ -1,0 +1,20 @@
+{
+  "schema_version": 2,
+  "revision": 0,
+  "project": {
+    "status": "UNINITIALIZED",
+    "charter_revision": 0,
+    "approved_charter": null,
+    "compatibility_review_required": false,
+    "compatibility_review": null
+  },
+  "current_stage": "NOT_STARTED",
+  "stage_status": "NOT_STARTED",
+  "stage_evidence": null,
+  "active_task": null,
+  "suspended_task": null,
+  "attempts": [],
+  "legacy_import": null,
+  "last_authorization": null,
+  "history": []
+}

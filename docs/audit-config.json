@@ -1,0 +1,9 @@
+{
+  "source_paths": ["."],
+  "exclude_paths": [
+    ".git", ".agents", ".github", "docs", "examples",
+    "data", "raw_data", "raw", "references", "resources", "results", "work",
+    ".snakemake", ".nextflow", ".venv", "venv", "node_modules",
+    "__pycache__", ".pytest_cache", ".mypy_cache", ".cache"
+  ]
+}

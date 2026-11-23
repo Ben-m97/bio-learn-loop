@@ -1,0 +1,30 @@
+# Python tooling caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Short-lived state-update files; the authoritative JSON state stays trackable.
+docs/WORKFLOW_STATE.json.lock
+docs/.workflow-state-*.tmp
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Generated workflow state and outputs; add project-specific rules after setup.
+.nextflow/
+.nextflow.log*
+.snakemake/
+work/
+results/
+raw_data/
+
+# Downloaded reference caches and raw data belong in approved storage.
+data/raw/
+references/cache/
+
+# Run records may be committed after checking them for sensitive content.
+# Small, public/synthetic fixtures and dependency locks should remain trackable.
