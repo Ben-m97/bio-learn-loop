@@ -32,9 +32,9 @@ Only my explicit instruction authorizes transitions. I commit manually.
 
 ## Add the workflow to an existing project
 
-Preserve existing instructions and project records. In an empty staging directory, obtain a copy of this template. Merge its `AGENTS.md` guidance into the existing root instructions, copy missing document templates into `docs/`, and merge the four skill directories into `.agents/skills/`. Resolve filename or skill-name conflicts explicitly; do not overwrite existing project decisions or test infrastructure.
+Preserve existing instructions and project records. In an empty staging directory, obtain a copy of this template. Merge its `AGENTS.md` guidance into the existing root instructions, copy missing document templates into `docs/`, and merge the skill directories into `.agents/skills/`. Resolve filename or skill-name conflicts explicitly; do not overwrite existing project decisions or test infrastructure.
 
-Also copy the public `scripts/workflow_state.py` helper and its internal `scripts/_workflow_state_v1.py` validator, resolving any existing-file conflicts. Preserve an existing PROJECT.md and WORKFLOW_STATE.json; do not replace live state with the new template. Use the explicit migration procedure for valid v1 state.
+Also copy the public scripts/workflow_state.py helper, preserved internal _workflow_state_v1.py and _workflow_state_v2.py validators, and _reflection_assessment.py evidence checker, resolving existing-file conflicts. Preserve live PROJECT.md and WORKFLOW_STATE.json; never replace them with template data. Explicit migration preserves prior histories. The schema-2 snapshot stays intact inside schema 3, with approval/task/stage unchanged.
 
 Establish the charter through Initialise, using existing documentation as context without inventing approval. Keep the technical brief for selected work; inspect existing decisions/code for compatibility. For version-1 workflow state, inspect it read-only and obtain explicit migration approval. Active legacy work stays suspended until initialization and compatibility review. Configure source paths for the checker and reuse suitable existing engine infrastructure.
 
@@ -49,7 +49,7 @@ Establish the charter through Initialise, using existing documentation as contex
 | Document | Records your choices, scope, and validation plan in the project files. | Review if useful; authorize moving to Build when ready. |
 | Build | Implements the approved slice, runs authorized checks, saves evidence, and arranges applicable reviews. | Approve any new consequential choices or challenged fix batches; authorize moving to Understand. |
 | Understand | Walks through actual code, data flow, run/debug commands, tests, output meaning, and limits. | Ask questions and acknowledge readiness before authorizing Reflect. |
-| Reflect | Discusses learning, outcomes, uncertainties, and the next question; audits the records and prepares the handoff. | Offer your reflections or explicitly skip an exercise; accept completion. |
+| Reflect | Tests essential concepts one question at a time, corrects misconceptions in chat, and checks follow-up answers before reflection/audit/handoff. | Explain/apply concepts in your own words; questions stay at the agreed conceptual level. Unresolved gaps keep Reflect incomplete. |
 | Commit — manual | Hands back changed files, check results, limitations, and an optional proposed commit message. | Stage and commit yourself. Codex never makes the commit. |
 
 Repeat this cycle for each small change; a pipeline release can contain several cycles. The PM also acts as your learning guide, the Lead owns the current approved implementation, and Workers handle bounded tasks. Engineering, scientific, and reproducibility reviewers work read-only. A different reviewer challenges findings before owner triage and fix approval. These safeguards sit inside the learning cycle; understanding a result does not establish its scientific validity.
@@ -102,7 +102,7 @@ Codex must wait there until you authorize the next transition, even after it has
 | `docs/LEDGER.md`, `docs/BACKLOG.md` | Current scope/findings and approved future ideas |
 | `docs/VALIDATION.md`, `docs/RUN_RECORD_TEMPLATE.md` | Planned evidence and reproducible run records |
 | `docs/RELEASE_PROCESS.md`, `docs/GLOSSARY.md` | Guided stages, release safeguards, and shared terms |
-| `.agents/skills/` | Start Lead, scientific review, reproducibility review, docs audit |
+| `.agents/skills/` | Start Lead, scientific review, reproducibility review, Reflect understanding, docs audit |
 | `scripts/` | Public state helper and preserved internal v1 validator for explicit migration |
 | `examples/` | Illustrative applications across analysis types and engines |
 
@@ -137,3 +137,11 @@ Use **VERIFIED**, **TRACED**, and **NOT RUN** for the basis of a statement. Scie
 Small public or synthetic tests exercise execution and failure handling. Scientific validation uses appropriate independent expectations, reference data, or justified invariants with predeclared tolerances. Reproducibility can mean agreement of specified scientific metrics rather than identical output bytes when tools are nondeterministic.
 
 See [the release process](docs/RELEASE_PROCESS.md), [examples](examples/README.md), and [engine guidance](examples/engine-guidance.md). No workflow engine, data download, cloud resource, or biological analysis is required to validate this template.
+
+## Reflect is a conceptual dialogue
+
+Reflect checks the general concepts of the current task, not coding expertise. Codex asks a focused question, assesses the actual answer against the approved learning goal, points out mistakes or important omissions in chat, and gives a correction when needed. It then checks a follow-up answer or application scenario. A clarification buried in a handoff and an owner self-report do not establish understanding.
+
+You can decline implementation detail without waiving conceptual questions. If essential gaps remain and you stop, Reflect stays incomplete; no normal waiver marks it passed. Documentation audit success checks documentation, not understanding. After concepts are demonstrated, the agent records reflection and the final handoff.
+
+The reflect-understanding skill documents the per-attempt JSON assessment format. At Reflect, ready requires --assessment; finish independently checks its immutable receipt, task/attempt, charter/learning-goal bindings, and current candidate files. The helper checks mechanics, not the correctness of reasoning or identity of a chat speaker. A legacy READY record cannot close the gate. An explicit Reopen Reflect assessment withdraws it to ACTIVE, preserving the same task and all history. Git staging/commits remain yours.

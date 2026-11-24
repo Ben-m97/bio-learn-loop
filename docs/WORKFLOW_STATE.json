@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "revision": 0,
   "project": {
     "status": "UNINITIALIZED",
@@ -16,5 +16,7 @@
   "attempts": [],
   "legacy_import": null,
   "last_authorization": null,
-  "history": []
+  "history": [],
+  "reflection": null,
+  "legacy_v2": null
 }

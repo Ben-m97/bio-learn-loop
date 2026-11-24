@@ -40,3 +40,7 @@ Use primary sources for method contracts and independent expectations. Synthetic
 - Cite records and approved artifact storage rather than embedding large data in documents. Use checksums for permitted public/non-sensitive artifacts and opaque permitted identifiers for protected data.
 - A changed candidate, method, reference, or parameter invalidates affected conclusions until the relevant checks and reviews are repeated. Unaffected evidence can be reused only with a documented reason.
 - Documentation audits and reviewer agreement are supporting process evidence, not proof of biological correctness.
+
+## Owner understanding is a separate completion gate
+
+Scientific/software checks cannot establish owner understanding. Reflect requires its own conceptual assessment dialogue, actual feedback and follow-up responses, and a current receipt. This assessment does not validate biological claims. A passing documentation audit cannot close a missing understanding check, and unresolved concepts cannot be waived as normal completion.

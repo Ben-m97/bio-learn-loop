@@ -12,6 +12,7 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+import hashlib
 import unittest
 
 ROOT = Path(__file__).resolve().parents[4]
@@ -52,7 +53,36 @@ class TemporaryProject(unittest.TestCase):
         return result
 
     def ready(self):
+        if self.state()["current_stage"] == "Reflect":
+            name = self.make_assessment()
+            return self.call("ready", "--evidence", "Synthetic conceptual dialogue", "--assessment", name)
         return self.call("ready", "--evidence", "Synthetic completion evidence; no biological result.")
+
+    def make_assessment(self):
+        # Synthetic owner exchanges exercise the interface, not real learning.
+        state = self.state()
+        for name, content in (("docs/PROJECT_BRIEF.md", "Synthetic goal: explain the input contract."),
+                              ("scripts/candidate.py", "value = 1\n")):
+            path = self.root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            if not path.exists():
+                path.write_text(content, encoding="utf-8")
+        names = ["docs/PROJECT.md", "docs/PROJECT_BRIEF.md", "scripts/candidate.py"]
+        record = {
+            "schema_version": 1, **{key: state["active_task"][key] for key in ("task_id", "attempt_id", "charter_revision")},
+            "bindings": {name: hashlib.sha256((self.root/name).read_bytes()).hexdigest() for name in names},
+            "candidate_files": ["scripts/candidate.py"],
+            "concepts": [{"id": "C1", "goal": "Explain the input contract", "criterion": "Distinguish structure from meaning",
+                          "status": "DEMONSTRATED", "resolution": "Synthetic criterion met", "exchanges": [{
+                              "question": "What does acceptance establish?", "owner_response": "Only the declared structure, not biological quality.",
+                              "owner_message_ref": "synthetic-owner-answer", "assessment": "CORRECT", "feedback": "Correct distinction.",
+                              "feedback_message_ref": "synthetic-chat-feedback", "gaps": []}]}],
+            "unresolved_gaps": [], "summary": "Synthetic test evidence only"
+        }
+        path = self.root / "docs/reflections/assessment.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(record), encoding="utf-8")
+        return "docs/reflections/assessment.json"
 
     def move(self, stage, **kwargs):
         kwargs.setdefault("command", f"Move to {stage}")

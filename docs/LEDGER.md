@@ -52,7 +52,7 @@ None yet. Record the version, exact gate, approval/waiver, owner reference, scop
 
 ## Cycle understanding, reflection, and manual handoff
 
-None yet. For each bounded cycle, retain the actual learning objective, implementation/evidence pointers, owner's understanding acknowledgement or open questions, owner's reflections (or explicit exercise skip), separate agent observations, and handoff contents. Do not invent what the owner learned. Read the stage from WORKFLOW_STATE.json rather than putting it here.
+None yet. For each task/attempt, retain the approved learning goals, essential conceptual criteria, dialogue/assessment file, owner answers and chat feedback/follow-up references, unresolved gaps, and actual demonstrated outcomes. Keep agent observations separate. An agent's explanation does not demonstrate owner understanding; a request to avoid code does not waive conceptual checking. Final reflection and handoff follow a successful check. Stage remains solely in WORKFLOW_STATE.json.
 
 Finish cycle archives the completed attempt and returns to Guide with no active task; it is not a Git commit. Restart preserves the task but creates a new attempt at Guide. Abandon records its disposition and returns to Guide without deleting/reverting files. The owner stages/commits manually. Move F IDs to Closed IDs only when released or explicitly dropped/rejected, keeping the disposition.
 
@@ -67,3 +67,7 @@ None.
 ## Closed IDs
 
 None. Use one line per allocated F ID with disposition, version/date, and evidence or approval reference. Rejected findings also keep their ID here.
+
+## Reflect readiness corrections
+
+If a prior handoff/readiness relied on self-report or agent clarification without demonstration, preserve it as history and append a dated correction. Do not rewrite the owner's words or old audits. A named owner-authorized Reopen Reflect assessment keeps task/attempt identity and reopens the check at Reflect ACTIVE. Keep it incomplete until essential concepts are demonstrated; do not silently restart the task or edit scientific evidence.

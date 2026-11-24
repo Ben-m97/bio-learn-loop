@@ -24,11 +24,12 @@ The helper `scripts/workflow_state.py` has read-only status and evidence-only re
 | abandon | Abandon task | Archive the abandoned attempt; Guide with no active task. |
 | reopen-project | Reopen Initialise | Start the next charter revision, suspending active work at its exact checkpoint. |
 | compatibility | Approve compatibility review | Record owner-reviewed decision/task dispositions; no stage change. |
-| migrate | Migrate workflow state | Explicitly import valid v1 state without inventing initialization/approvals. |
+| migrate | Migrate workflow state | Upgrade valid v1/v2 state to schema 3, preserving project/task/stage and complete original histories; no conceptual mastery is inferred. |
+| reopen-reflection | Reopen Reflect assessment | Preserve the same Reflect task/attempt, withdraw readiness to ACTIVE, retain the previous handoff and evidence. |
 
 All mutations require --expected-revision; owner operations also require the exact --owner-command and actual --authorization-ref. Restart/reopen/abandon need a reason; restart needs a new attempt ID; compatibility needs dispositions/evidence. The start operation requires --task-id and --attempt-id (--cycle-id remains an alias for --attempt-id). These are recording interfaces for Codex; the owner normally uses chat instructions. The helper never edits the charter, decisions, source, outputs, or Git.
 
-Approved charter text, revision, and digest are retained in history. If PROJECT.md changes unexpectedly, stop task progression and ask the owner to restore the approved text or explicitly reopen Initialise. Status reads never migrate. A v1 import preserves the entire original snapshot/history; active legacy work is suspended until initialization and compatibility review.
+Approved charter text, revision, and digest remain in history. Unexpected charter changes stop task progression pending owner reconciliation. Status reads never migrate. Schema-1 imports retain their original initialization/compatibility requirements; schema-2 migration preserves its approved project, task, attempt and current stage/readiness. A legacy Reflect READY has no qualifying new assessment receipt and cannot finish under schema 3. Only explicit Reopen Reflect assessment withdraws readiness; migration alone never resets a stage. Historical completed cycles are preserved under their original rules, not retroactively labelled as conceptually assessed.
 
 The helper records authorization provenance but cannot authenticate a chat speaker or prove that a method was approved. Codex must provide the actual owner instruction/reference and verify the separate design, budget, and evidence gates. State completion must never fabricate owner understanding, reflections, approvals, or a manual commit.
 
@@ -89,7 +90,13 @@ Walk the owner through the actual changed files and data flow, key code, approve
 
 ### 7. Reflect
 
-Compare intent with observed behavior, discuss what the owner learned and what remains unclear, assess limitations, and recommend the next useful question. Record the owner's actual reflections separately from agent observations. Obtain approval before retaining future ideas in the backlog. Finalize the cycle's decisions/code map/evidence links and run the applicable documentation audit; new findings return through challenge/owner triage, with owner-authorized stage moves. **Output:** a short reflection record and handoff listing changed files, checks/results/limits, open findings, and any proposed commit message as plain text. **Pause:** wait for Finish cycle before recording completion. An explicit request to skip a reflective exercise may be recorded, but is not an automatic transition.
+Use the reflect-understanding skill for a required conceptual assessment before personal reflection or final handoff. Derive a small set of essential concepts/criteria from the approved learning goals, actual implementation, and interpretation limits. Ask one focused explanation/application question at a time. Say in chat what is right, mistaken, or importantly unassessed. An omission is not proof of ignorance: ask about it. Do not demand coding syntax, implementation mastery, memorized numbers, or untaught details.
+
+Give corrective feedback in chat, then ask a targeted follow-up or new scenario and wait for an actual response demonstrating the corrected concept. The agent's clarification, owner confidence, or an acknowledgement alone is insufficient. Requests to avoid code narrow the discussion to concepts; they do not waive it. If the owner stops before essential gaps are resolved, pause Reflect ACTIVE. Do not offer normal completion by waiver.
+
+Record actual questions, owner answers/message references, assessments, feedback/message references, gaps, and follow-ups in a per-attempt JSON assessment using the reflect-understanding skill's reference format. Bind it to task/attempt, charter revision, learning goals, and reviewed implementation files. Only demonstrated concepts can pass; never infer learning from the agent's own correction. Changed relevant files or a restarted/backtracked attempt invalidate applicability.
+
+After the conceptual dialogue succeeds, discuss learning/outcomes/limits, record actual reflections separately from agent observations, and finalize the handoff/audit. The helper ready operation at Reflect requires --assessment with the project-relative JSON path as well as completion evidence/revision. It validates structure and file integrity, not semantic truth or speaker identity. Finish independently rechecks the receipt/artifact/bindings; neither a clean audit nor historical generic READY can substitute. **Output:** demonstrated conceptual understanding, a faithful dialogue record, reflection, and manual handoff. **Pause:** wait for explicit Finish cycle; no automated Git action.
 
 ### 8. Commit — owner only
 

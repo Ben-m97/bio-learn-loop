@@ -35,3 +35,7 @@ A new unconfigured PROJECT.md is a charter scaffold. An UNCONFIGURED technical b
 ## Report
 
 Give the candidate identity, checker command/result and warning dispositions, inspected coverage, and substantive mismatches/missing evidence. Cite file/line or artifacts. Return findings through the challenge/triage gate; report owner decisions with recommendations. Say “documentation audit clean” only when both mechanical and semantic reviews are clean, and state that this is not scientific validation or release approval.
+
+## Reflect assessment coverage
+
+When auditing a final Reflect handoff, verify that it links the current structured conceptual assessment and faithfully distinguishes owner responses from agent feedback. Corrections must have occurred in chat and, when needed, a later owner response must demonstrate the correction. A code-detail preference is not a waiver. Report missing or unresolved assessment evidence; a clean documentation audit does not mark Reflect READY or authorize Finish cycle. Preserve historical handoffs/audits and append corrections rather than rewriting old owner statements.

@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import tempfile
 import unittest
 from urllib.parse import unquote, urlsplit
 
@@ -23,6 +24,8 @@ class TemplateTests(unittest.TestCase):
             ".github/workflows/template-checks.yml",
             "docs/WORKFLOW_STATE.json", "scripts/workflow_state.py",
             "docs/PROJECT.md", "scripts/_workflow_state_v1.py",
+            "scripts/_workflow_state_v2.py", "scripts/_reflection_assessment.py",
+            ".agents/skills/reflect-understanding/SKILL.md",
         ]
         for name in required:
             with self.subTest(path=name):
@@ -30,7 +33,7 @@ class TemplateTests(unittest.TestCase):
 
     def test_repository_skills_have_valid_discovery_frontmatter(self):
         skills = sorted((ROOT / ".agents/skills").glob("*/SKILL.md"))
-        self.assertEqual(len(skills), 4)
+        self.assertEqual(len(skills), 5)
         for skill in skills:
             with self.subTest(skill=skill.parent.name):
                 content = skill.read_text(encoding="utf-8")
@@ -62,8 +65,25 @@ class TemplateTests(unittest.TestCase):
 
     def test_unconfigured_template_passes_only_the_mechanical_audit(self):
         checker = ROOT / ".agents/skills/docs-audit/scripts/check_docs.py"
-        result = subprocess.run([sys.executable, str(checker), "--root", str(ROOT)],
-                                capture_output=True, text=True, timeout=20)
+        # The checkout may be initialized; pristine-template assertions belong
+        # to an isolated scaffold, not the owner's approved project documents.
+        with tempfile.TemporaryDirectory(prefix="bio template audit ") as temporary:
+            fixture_root = Path(temporary)
+            docs = fixture_root / "docs"
+            docs.mkdir()
+            documents = {
+                "PROJECT.md": "# Project charter\n\n**Template:** UNCONFIGURED\n",
+                "PROJECT_BRIEF.md": "# Technical brief\n\n**Status:** UNCONFIGURED\n",
+                "DECISIONS.md": "# Decisions\n\n## Active decisions\n\nNone.\n",
+                "CODE_MAP.md": "# Code map\n\n## Implemented workflow\n\nNone.\n",
+                "LEDGER.md": "# Ledger\n\n- **IDs:** next free are **F-001** and **D-001**.\n",
+            }
+            for name, content in documents.items():
+                (docs / name).write_text(content, encoding="utf-8")
+            result = subprocess.run(
+                [sys.executable, str(checker), "--root", str(fixture_root)],
+                capture_output=True, text=True, timeout=20,
+            )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("INFO UNCONFIGURED", result.stdout)
         self.assertIn("0 fail, 0 warn", result.stdout)

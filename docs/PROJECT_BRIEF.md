@@ -59,3 +59,7 @@ A plain-language vision is enough to begin Initialise. These technical fields ar
 - **Approval:** <date and owner message/reference approving the brief; none yet>
 
 An approved brief does not itself approve a release or waive later gates.
+
+## Conceptual completion criteria
+
+For each selected task, derive a small set of essential concepts from its approved learning goals, outcome meaning, and limitations. Reflect checks these through dialogue and follow-up after corrections. The owner may avoid coding detail; no code exercise or implementation mastery is required unless specifically chosen. Do not demand incidental omitted facts. Final readiness requires demonstrated conceptual understanding, not self-reported confidence or an agent-written clarification.

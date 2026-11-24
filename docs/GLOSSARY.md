@@ -22,7 +22,7 @@ UNCONFIGURED. Add the project's scientific entities, units, references, and outp
 - **Document:** Codex records actual approved choices, scope, and validation expectations before implementation.
 - **Build:** implement and test the current approved slice, with applicable reviews and evidence.
 - **Understand:** explain the actual code, data flow, checks, results, and limitations, and obtain the owner's real acknowledgement.
-- **Reflect:** discuss learning, outcomes, uncertainty, and the next question; record actual reflections and prepare the handoff.
+- **Reflect:** required conceptual understanding dialogue with chat feedback and follow-up demonstration, followed by reflection/audit/manual handoff; incomplete while essential concepts remain unassessed or mistaken.
 - **Commit:** the owner's manual Git staging/commit action after handoff, outside the agent-run stages.
 - **Workflow state:** authoritative initialization, charter approval, active/suspended task, attempt, stage/status, and history in WORKFLOW_STATE.json; conversation is not a stage source.
 - **READY:** current-stage work has completion evidence, but the stage has not advanced. Only an explicit owner instruction authorizes the next transition.
@@ -45,3 +45,7 @@ UNCONFIGURED. Add the project's scientific entities, units, references, and outp
 - **NEEDS VALIDATION:** evidence is insufficient or an appropriate validation remains pending.
 
 These process definitions describe the template. They are not recorded owner approvals for a new project's scientific choices.
+
+- **Conceptual assessment:** task-proportionate explanation/application questions against approved learning goals; no code mastery or memorization unless explicitly part of those goals.
+- **Demonstrated concept:** an actual owner response meets the declared criterion; the agent's own correction is not evidence of this.
+- **Assessment receipt:** a preserved structured dialogue assessment bound to task/attempt, charter, learning goals, and implementation identity, required for Reflect readiness/completion.

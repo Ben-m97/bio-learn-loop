@@ -41,3 +41,5 @@ Do non-overlapping coordination or wait for completion events. Do not duplicate 
 Verify returned claims against actual artifacts, code, decisions, and acceptance criteria. A proposed command is NOT RUN; source reading is TRACED. Arrange independent read-only reviews and a separate challenge for findings. If those capabilities are missing, report the open gate for owner direction or a specific recorded waiver. Self-review does not satisfy independence.
 
 Build completion can be recorded as READY with actual evidence; it does not authorize Understand. Wait for the owner's explicit named transition. The PM then teaches the actual code/results in Understand and records the owner's acknowledgement, followed by owner-authorized Reflect and a manual-commit handoff. Do not silently continue the next pipeline slice.
+
+Prepare material for the conceptual check without grading the owner's understanding during Build. Reflect later uses reflect-understanding: essential approved concepts, actual chat feedback, and follow-up owner responses are required before readiness. Build/test/audit success and an owner's preference against code detail never satisfy that gate.
